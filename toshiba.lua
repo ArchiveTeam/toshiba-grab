@@ -29,7 +29,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   end
   
   if (downloaded[url] ~= true or addedtolist[url] ~= true) then
-    if string.match(urlpos["url"]["host"], "toshiba%.com") and string.match(url, "/"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "/"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") then
+    if string.match(urlpos["url"]["host"], "toshiba%.com") and string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") then
       addedtolist[url] = true
       return true
     elseif html == 0 then
@@ -51,7 +51,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
  
   local function check(url)
-    if (downloaded[url] ~= true and addedtolist[url] ~= true) and (string.match(url, "https?://cdgenp01.csd.toshiba.com/") or (string.match(string.match(newurl, "https?://([^/]+)"), "toshiba%.com") and string.match(url, "/"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "/"..item_value.."[a-z0-9][a-z0-9][a-z0-9]"))) then
+    if (downloaded[url] ~= true and addedtolist[url] ~= true) and (string.match(url, "https?://cdgenp01%.csd%.toshiba%.com/") or (string.match(string.match(url, "https?://([^/]+)"), "toshiba%.com") and string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9][a-z0-9]"))) then
       if string.match(url, "&amp;") then
         table.insert(urls, { url=string.gsub(url, "&amp;", "&") })
         addedtolist[url] = true
@@ -63,7 +63,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     end
   end
   
-  if string.match(string.match(url, "https?://([^/]+)/"), "toshiba%.com") and string.match(url, "/"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "/"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") then
+  if string.match(string.match(url, "https?://([^/]+)/"), "toshiba%.com") and string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") then
     html = read_file(file)
     for newurl in string.gmatch(html, '"(https?://[^"]+)"') do
       check(newurl)
