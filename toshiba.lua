@@ -63,7 +63,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     end
   end
   
-  if string.match(string.match(url, "https?://([^/]+)/"), "toshiba%.com") and string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9]") and not string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") then
+  if string.match(string.match(url, "https?://([^/]+)/"), "toshiba%.com") and string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9]") and not (string.match(url, "[^0-9]"..item_value.."[a-z0-9][a-z0-9][a-z0-9]") or string.match(url, "https?://cdgenp01%.csd%.toshiba%.com/")) then
     html = read_file(file)
     for newurl in string.gmatch(html, '"(https?://[^"]+)"') do
       check(newurl)
