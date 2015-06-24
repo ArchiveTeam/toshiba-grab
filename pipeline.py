@@ -57,7 +57,7 @@ if not WGET_LUA:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = "20150623.01"
+VERSION = "20150625.01"
 USER_AGENT = 'ArchiveTeam'
 TRACKER_ID = 'toshiba'
 TRACKER_HOST = 'tracker.archiveteam.org'
@@ -194,7 +194,7 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ('download', 'document')
+        assert item_type in ('download')
         
         if item_type == 'download':
             suffixes = string.digits
@@ -202,8 +202,6 @@ class WgetArgs(object):
                 wget_args.append(url)
             for url in ['http://support.toshiba.com/support/viewContentDetail?contentId={0}{1}{2}'.format(item_value, a, b) for a in suffixes for b in suffixes]:
                 wget_args.append(url)
-        elif item_type == 'document':
-            suffixes = string.digits
             for url in ['http://support.toshiba.com/support/staticContentDetail?contentId={0}{1}{2}'.format(item_value, a, b) for a in suffixes for b in suffixes]:
                 wget_args.append(url)
         else:
